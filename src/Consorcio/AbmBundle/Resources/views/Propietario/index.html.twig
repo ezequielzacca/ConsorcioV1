@@ -2,64 +2,93 @@
 {% block body %}
 
 <div class="mws-panel grid_8">
-                	<div class="mws-panel-header"><span class="mws-i-24 i-table-1">Lista de Propietarios</span>
-                    </div>
-        <div>
-<div class="mws-panel-body">
-                        
-                        <div class="mws-panel-toolbar bottom clearfix">
-                        	<ul>
-                            	<li><a href="{{ path('propietarios_new') }}" class="mws-ic-16 ic-add">Alta de Propietario</a></li>
-                            	
-                            </ul>
-                        </div>
+    <div class="mws-panel-header"><span class="mws-i-24 i-table-1">Lista de Propietarios</span>
+    </div>
+    <div>
+        <div class="mws-panel-body">
 
-<table class="mws-datatable-fn mws-table">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Tipo_documento</th>
-            <th>Numero_documento</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Telefono_fijo</th>
-            <th>Telefono_celular</th>
-            <th>Contacto_auxiliar</th>
-            <th>Observaciones</th>
-            <th>Email</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for entity in entities %}
-        <tr>
-            <td><a href="{{ path('propietarios_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{{ entity.tipodocumento }}</td>
-            <td>{{ entity.numerodocumento }}</td>
-            <td>{{ entity.nombre }}</td>
-            <td>{{ entity.apellido }}</td>
-            <td>{{ entity.telefonofijo }}</td>
-            <td>{{ entity.telefonocelular }}</td>
-            <td>{{ entity.contactoauxiliar }}</td>
-            <td>{{ entity.observaciones }}</td>
-            <td>{{ entity.email }}</td>
-            <td>
+            <div class="mws-panel-toolbar bottom clearfix">
                 <ul>
-                    <li>
-                        <a href="{{ path('propietarios_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('propietarios_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-            </td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+                    <li><a href="{{ path('propietarios_new') }}" class="mws-ic-16 ic-add">Alta de Propietario</a></li>
 
-     </div>
-                </div>
-                
+                </ul>
+            </div>
+
+            <table class="mws-datatable-fn mws-table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Tipo_documento</th>
+                        <th>Numero_documento</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Telefono_fijo</th>
+                        <th>Telefono_celular</th>
+                        <th>Contacto_auxiliar</th>
+                        <th>Observaciones</th>
+                        <th>Email</th>
+                        <!--<th>Actions</th>-->
+                    </tr>
+                </thead>
+                <tbody>
+    {% for entity in entities %}
+                        <tr class="contextMenu" data-show-path="{{ path('propietarios_show', { 'id': entity.id }) }}">
+                            <td><a href="{{ path('propietarios_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                            <td>{{ entity.tipodocumento }}</td>
+                            <td>{{ entity.numerodocumento }}</td>
+                            <td>{{ entity.nombre }}</td>
+                            <td>{{ entity.apellido }}</td>
+                            <td>{{ entity.telefonofijo }}</td>
+                            <td>{{ entity.telefonocelular }}</td>
+                            <td>{{ entity.contactoauxiliar }}</td>
+                            <td>{{ entity.observaciones }}</td>
+                            <td>{{ entity.email }}</td>
+                            <!--<td>
+                                <ul>
+                                    <li>
+                                        <a href="{{ path('propietarios_show', { 'id': entity.id }) }}">show</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('propietarios_edit', { 'id': entity.id }) }}">edit</a>
+                                    </li>
+                                </ul>
+                            </td>-->
+                        </tr>
+    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
 
 {% endblock %}
+        {% block javascripts %}
+        {{ parent() }}
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $.contextMenu({
+                    selector: '.contextMenu',
+                    callback: function(key, options) {
+                        if(key==='edit'){
+                            var url = $(this).attr('data-show-path');
+                            $(location).attr('href',url);
+                        }
+                    },
+                    items: {
+                        "edit": {name: "Edit", icon: "edit"},
+                        "cut": {name: "Cut", icon: "cut"},
+                        "copy": {name: "Copy", icon: "copy"},
+                        "paste": {name: "Paste", icon: "paste"},
+                        "delete": {name: "Delete", icon: "delete"},
+                        "sep1": "---------",
+                        "quit": {name: "Quit", icon: "quit"}
+                    }
+                });
+
+                $('.context-menu-one').on('click', function(e) {
+                    console.log('clicked', this);
+                })
+            });
+            </script>
+        {% endblock %}
