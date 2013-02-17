@@ -90,6 +90,7 @@
  */
 .context-menu-item.icon { min-height: 22px; background-repeat: no-repeat; background-position: 4px 2px; }
 .context-menu-item.icon-edit { background-image: url(images/page_white_edit.png); }
+.context-menu-item.icon-show { background-image: url(images/lupa.png); }
 .context-menu-item.icon-cut { background-image: url(images/cut.png); }
 .context-menu-item.icon-copy { background-image: url(images/page_white_copy.png); }
 .context-menu-item.icon-paste { background-image: url(images/page_white_paste.png); }

@@ -70,13 +70,13 @@
                 $.contextMenu({
                     selector: '.contextMenu',
                     callback: function(key, options) {
-                        if(key==='edit'){
+                        if(key==='show'){
                             var url = $(this).attr('data-show-path');
                             $(location).attr('href',url);
                         }
                     },
                     items: {
-                        "edit": {name: "Edit", icon: "edit"},
+                        "edit": {name: "Show", icon: "show"},
                         "cut": {name: "Cut", icon: "cut"},
                         "copy": {name: "Copy", icon: "copy"},
                         "paste": {name: "Paste", icon: "paste"},
